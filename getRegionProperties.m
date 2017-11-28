@@ -3,6 +3,8 @@ function[peakSize, locations, centroid] = getRegionProperties(Im)
     regionProperties=regionprops(Im,'all');
     boundaries = bwboundaries(Im,'noholes');
     peakSize = 0;
+    locations = [0 0];
+    centroid = [0 0];
   
     for k =1:length(boundaries)
         centroid = regionProperties.Centroid;
@@ -23,4 +25,5 @@ function[peakSize, locations, centroid] = getRegionProperties(Im)
             hold off
         end
     end
+    
 end
