@@ -3,8 +3,9 @@ function[] = showRegionProperties(Im)
     figure(1);subplot(3,3,8);imshow(Im);title('Region Properties');
     regionProperties = regionprops('table',Im,'Area','Centroid','BoundingBox');
     objectRegions = find(regionProperties.Area > 0);
+    
+    % Plot the area, bounding box and centroid for all regions in the image
     hold on;
-    % Get the area, boundary and centroid for all regions in the image
     for i=1:size(objectRegions)
         objReg = regionProperties(objectRegions(i),:);
         plot(objReg.Centroid(1),objReg.Centroid(2),'r.');

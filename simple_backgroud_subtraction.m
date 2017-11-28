@@ -1,7 +1,10 @@
 function [thresholded_Image] = simple_backgroud_subtraction(Im,bgIm,isColor)
     global debug
     sigma = 2;
-    G = fspecial('gaussian', 2*ceil(3*sigma)+1, sigma); 
+    G = fspecial('gaussian', 2*ceil(3*sigma)+1, sigma);
+    
+    % Simple background subtraction has been implemented for both the RGB
+    % version and the grayscale version.
     if(isColor==true)
         bgIm = imfilter(double(bgIm), G, 'replicate');
         Im = imfilter(double(Im), G, 'replicate');
@@ -11,9 +14,14 @@ function [thresholded_Image] = simple_backgroud_subtraction(Im,bgIm,isColor)
         grayIm = double(rgb2gray(Im));
         diff = uint8(abs(bgGrayIm-grayIm));
     end    
+    
+    % Threshold limit is determined using Otsu's method and thresholded
+    % using imbinarize.
     T = graythresh(diff);
     thresholded_Image = imbinarize(diff, T);
     
+    % Displays the background image, current scene, the subtracted image
+    % and the thresholded image.
     if(debug==true)
         figure(1);subplot(3,3,1);imshow(bgIm/255);title('Background');
         figure(1);subplot(3,3,2);imshow(Im/255);title('Gesture');
