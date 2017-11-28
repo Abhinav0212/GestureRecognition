@@ -3,8 +3,9 @@ import java.awt.event.*;
 warning('off', 'signal:findpeaks:largeMinPeakHeight');
 global debug;
 debug = false;
+
+% Create the webcam and mouse object
 mouse = Robot;
-% Create the webcam object
 cam = webcam;
 
 % Capture a frame to get its size.
